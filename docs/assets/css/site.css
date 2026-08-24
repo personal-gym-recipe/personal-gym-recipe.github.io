@@ -542,6 +542,7 @@ header{
   margin-right:min(-4vw,calc((1180px - 100vw)/2));
 }
 .journal-rail::-webkit-scrollbar{display:none}
+.journal-empty{width:min(1180px,calc(100% - 8vw));margin:0 auto;padding:42px 24px;border:1px solid rgba(255,255,255,.24);text-align:center;color:rgba(255,255,255,.78)}
 .post{
   flex:0 0 clamp(320px,35vw,430px);
   scroll-snap-align:start;
