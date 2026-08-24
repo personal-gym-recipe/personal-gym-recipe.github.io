@@ -41,6 +41,7 @@ function markdown(md){
   flushP();flushL();return html.join("\n");
 }
 function copyDir(from,to){fs.mkdirSync(to,{recursive:true});for(const ent of fs.readdirSync(from,{withFileTypes:true})){const a=path.join(from,ent.name),b=path.join(to,ent.name);ent.isDirectory()?copyDir(a,b):fs.copyFileSync(a,b)}}
+function copySearchConsoleVerification(){const dir=path.join(src,"search-console");if(!fs.existsSync(dir))return;for(const name of fs.readdirSync(dir)){if(/^google[a-z0-9_-]+\.html$/i.test(name)){fs.copyFileSync(path.join(dir,name),path.join(out,name))}}}
 function header(site,home=false){const top=home?'':basePath+'/';const items=[['Recipeについて','concept'],['トレーナー','trainer'],['指導の流れ','flow'],['導入器具','equipment'],['料金','price'],['アクセス','visit'],['ブログ','journal'],['Q&A','faq'],['お問い合わせ','contact']];const links=items.map(([label,id])=>`<a${id==='contact'?' class="nav-cta"':''} href="${top}#${id}">${label}</a>`).join('');return `<header><div class="container nav"><a class="brand" href="${home?'#top':top}">${esc(site.name)}<small>${esc(site.tagline)}</small></a><nav class="navlinks" aria-label="メインメニュー">${links}</nav><button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileMenu"><span>MENU</span><i></i><i></i></button></div></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="mobile-menu" id="mobileMenu" aria-hidden="true"><div class="mobile-menu-head"><span>MENU</span><button id="menuClose" type="button" aria-label="メニューを閉じる">×</button></div><nav aria-label="スマートフォンメニュー">${links}</nav></aside>`}
 function footer(site){return `<footer><div class="container footer-row"><span>${esc(site.name)}</span><span>© ${new Date().getFullYear()} ${esc(site.name)}</span></div></footer>`}
 function businessStructuredData(site){
@@ -146,6 +147,7 @@ function notFound(site){return `<!doctype html><html lang="ja">${head(site,`ペ�
 
 fs.rmSync(out,{recursive:true,force:true});fs.mkdirSync(out,{recursive:true});
 copyDir(path.join(src,"assets"),path.join(out,"assets"));copyDir(path.join(src,"admin"),path.join(out,"admin"));
+copySearchConsoleVerification();
 const site=readJSON(path.join(src,"data/site.json"));
 const posts=fs.readdirSync(path.join(src,"posts")).filter(f=>f.endsWith(".json")).map(f=>({...readJSON(path.join(src,"posts",f)),slug:slugFromFile(f)})).sort((a,b)=>String(b.date).localeCompare(String(a.date)));
 fs.writeFileSync(path.join(out,"index.html"),page(home(site,posts)));
