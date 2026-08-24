@@ -5,12 +5,13 @@ import { fileURLToPath } from "node:url";
 const __dirname=path.dirname(fileURLToPath(import.meta.url));
 const src=path.join(__dirname,"src"), out=path.join(__dirname,"docs");
 const basePath="";
-const assetVersion="20260824-4";
+const assetVersion="20260824-5";
 const readJSON=p=>JSON.parse(fs.readFileSync(p,"utf8"));
 const esc=s=>String(s??"").replace(/[&<>\"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const attr=esc;
 const safeUrl=u=>{const s=String(u||"").trim(); return /^(https?:\/\/|\/|\.\.?\/)/i.test(s)?s:"#"};
 const publicUrl=u=>{const s=safeUrl(u);return s.startsWith("/")?`${basePath}${s}`:s};
+const absoluteUrl=(site,u)=>new URL(publicUrl(u),`${site.url}/`).href;
 // This organization Pages site is published at the root of its github.io URL.
 const page=html=>html;
 const fmtDate=s=>{const d=new Date(String(s)+"T00:00:00+09:00"); return new Intl.DateTimeFormat("ja-JP",{year:"numeric",month:"2-digit",day:"2-digit"}).format(d).replaceAll("/",".")};
@@ -42,7 +43,30 @@ function markdown(md){
 function copyDir(from,to){fs.mkdirSync(to,{recursive:true});for(const ent of fs.readdirSync(from,{withFileTypes:true})){const a=path.join(from,ent.name),b=path.join(to,ent.name);ent.isDirectory()?copyDir(a,b):fs.copyFileSync(a,b)}}
 function header(site,home=false){const top=home?'':basePath+'/';const items=[['Recipeについて','concept'],['トレーナー','trainer'],['指導の流れ','flow'],['導入器具','equipment'],['料金','price'],['アクセス','visit'],['ブログ','journal'],['Q&A','faq'],['お問い合わせ','contact']];const links=items.map(([label,id])=>`<a${id==='contact'?' class="nav-cta"':''} href="${top}#${id}">${label}</a>`).join('');return `<header><div class="container nav"><a class="brand" href="${home?'#top':top}">${esc(site.name)}<small>${esc(site.tagline)}</small></a><nav class="navlinks" aria-label="メインメニュー">${links}</nav><button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileMenu"><span>MENU</span><i></i><i></i></button></div></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="mobile-menu" id="mobileMenu" aria-hidden="true"><div class="mobile-menu-head"><span>MENU</span><button id="menuClose" type="button" aria-label="メニューを閉じる">×</button></div><nav aria-label="スマートフォンメニュー">${links}</nav></aside>`}
 function footer(site){return `<footer><div class="container footer-row"><span>${esc(site.name)}</span><span>© ${new Date().getFullYear()} ${esc(site.name)}</span></div></footer>`}
-function head(site,title,desc,url){return `<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f3ed"><title>${esc(title)}</title><meta name="description" content="${attr(desc)}"><link rel="canonical" href="${attr(url)}"><link rel="stylesheet" href="${basePath}/assets/css/site.css?v=${assetVersion}"><script>document.documentElement.classList.add('js')</script><script>window.RECIPE_BASE_PATH='${basePath}'</script><script src="${basePath}/assets/js/site.js?v=${assetVersion}" defer></script></head>`}
+function businessStructuredData(site){
+  const offers=[
+    {"@type":"Offer",name:site.counseling.title,price:"0",priceCurrency:"JPY",description:site.counseling.body},
+    {"@type":"Offer",name:site.admission.title,price:String(site.admission.price).replace(/[^\d]/g,""),priceCurrency:"JPY"},
+    ...site.prices.map(plan=>{const price=String(plan.price).replace(/[^\d]/g,"");const priceSpecification={"@type":"UnitPriceSpecification",priceCurrency:"JPY"};if(String(plan.price).includes("〜")){priceSpecification.minPrice=price}else{priceSpecification.price=price}return {"@type":"Offer",name:`${plan.name} ${plan.unit}`,description:`${plan.description} ${plan.detail}`,priceSpecification}})
+  ];
+  const business={
+    "@type":"ExerciseGym",
+    "@id":`${site.url}/#business`,
+    name:site.name,
+    url:`${site.url}/`,
+    description:site.seo?.description||site.description,
+    image:absoluteUrl(site,site.hero.image),
+    address:{"@type":"PostalAddress",streetAddress:"中央町3-23 桑名シティホテル4F",addressLocality:"桑名市",addressRegion:"三重県",addressCountry:"JP"},
+    areaServed:{"@type":"City",name:"桑名市"},
+    sameAs:[site.contact.instagram,site.contact.line],
+    employee:{"@type":"Person",name:site.trainer.name,jobTitle:"トレーナー",description:site.trainer.body,award:site.trainer.award},
+    priceRange:"カウンセリング無料・入会金22,000円・4回28,000円〜",
+    makesOffer:offers
+  };
+  const website={"@type":"WebSite","@id":`${site.url}/#website`,url:`${site.url}/`,name:site.name,inLanguage:"ja"};
+  return JSON.stringify({"@context":"https://schema.org","@graph":[website,business]}).replace(/</g,"\\u003c");
+}
+function head(site,title,desc,url,options={}){const structured=options===true||options.structured===true;const noindex=options.noindex===true||url.endsWith("/404.html");const type=options.type||"website";const finalTitle=structured&&site.seo?.title?site.seo.title:title;const finalDesc=structured&&site.seo?.description?site.seo.description:desc;const image=absoluteUrl(site,site.hero.image);const robots=noindex?'<meta name="robots" content="noindex,nofollow">':'';const data=structured?`<script type="application/ld+json">${businessStructuredData(site)}</script>`:'';return `<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f3ed">${robots}<title>${esc(finalTitle)}</title><meta name="description" content="${attr(finalDesc)}"><link rel="canonical" href="${attr(url)}"><meta property="og:locale" content="ja_JP"><meta property="og:type" content="${attr(type)}"><meta property="og:site_name" content="${attr(site.name)}"><meta property="og:title" content="${attr(finalTitle)}"><meta property="og:description" content="${attr(finalDesc)}"><meta property="og:url" content="${attr(url)}"><meta property="og:image" content="${attr(image)}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${attr(finalTitle)}"><meta name="twitter:description" content="${attr(finalDesc)}"><meta name="twitter:image" content="${attr(image)}">${data}<link rel="stylesheet" href="${basePath}/assets/css/site.css?v=${assetVersion}"><script>document.documentElement.classList.add('js')</script><script>window.RECIPE_BASE_PATH='${basePath}'</script><script src="${basePath}/assets/js/site.js?v=${assetVersion}" defer></script></head>`}
 function card(p){const cover=p.image?`<div class="post-cover has-image"><img src="${attr(publicUrl(p.image))}" alt=""></div>`:`<div class="post-cover"><span>${esc(p.coverLabel||p.category)}</span></div>`;return `<article class="post reveal">${cover}<div class="post-body"><div class="post-meta">${fmtDate(p.date)} / ${esc(p.category)}</div><h3 title="${attr(p.title)}">${esc(p.title)}</h3><p>${esc(p.excerpt)}</p><div class="post-actions"><button class="like-btn" data-like-slug="${attr(p.slug)}">👍 参考になった <span>0</span></button><a class="read-more" href="${basePath}/journal/${encodeURIComponent(p.slug)}/">記事を読む →</a></div></div></article>`}
 function contactActions(site){return `<div class="contact-actions reveal"><a class="contact-action line-primary" href="${attr(site.contact.line)}" target="_blank" rel="noopener noreferrer" aria-label="公式LINEで初回体験を申し込む"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.1c0 4-4 7.3-9 7.3-.8 0-1.6-.1-2.3-.2L5.6 21l1.1-3.5C4.4 16.2 3 13.9 3 11.1 3 7.1 7 4 12 4s9 3.1 9 7.1Z"></path></svg><span>初回体験をLINEで申し込む</span></a><a class="contact-action instagram-secondary" href="${attr(site.contact.instagram)}" target="_blank" rel="noopener noreferrer" aria-label="Instagramでジムの雰囲気を見る"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg><span>Instagramでジムの雰囲気を見る</span></a></div>`}
 function home(site,posts){const plans=site.prices.map(x=>`<article class="plan${x.featured?' featured':''} reveal"><div class="tag">${esc(x.tag)}</div><h3>${esc(x.name)}</h3><div class="price-num">${esc(x.price)} <small>${esc(x.unit)}</small></div><p>${esc(x.description)}</p><div class="bottom">${esc(x.detail)}</div></article>`).join("");const cards=posts.map(card).join("");const mail=site.contact.email?`<div class="mail-line">メール：<a href="mailto:${attr(site.contact.email)}">${esc(site.contact.email)}</a></div>`:"";const flowTitleLines=[["目的を聞く"],["身体の状態を","確認する"],["その人に合う","方法を提案する"]];const flow=(site.flow||[]).map((x,i)=>`<article class="flow-step reveal"><span>0${i+1}</span><h3 class="serif">${(flowTitleLines[i]||[x.title]).map(line=>`<span class="mobile-line">${esc(line)}</span>`).join("")}</h3><p>${esc(x.body)}</p></article>`).join("");const featured=(site.equipment?.featured||[]).slice(0,3).map(x=>`<article class="equipment-card reveal">${x.image?`<img src="${attr(publicUrl(x.image))}" alt="${attr(x.name)}">`:''}<div><span>${esc(x.model||'REP')}</span><h3 class="serif">${esc(x.name)}</h3><p>${esc(x.feature)}</p><p class="why"><strong>選んだ理由</strong>${esc(x.reason)}</p></div></article>`).join("");const additional=(site.equipment?.additional||[]).length?`<details class="equipment-more"><summary>その他の設備を見る</summary><ul>${site.equipment.additional.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></details>`:'';const faq=(site.faq||[]).slice(0,4).map(x=>`<details class="faq-item reveal"><summary>${esc(x.question)}</summary><p>${esc(x.answer)}</p></details>`).join("");const trainerIdentity=site.trainer.name||site.trainer.career?`<div class="trainer-identity">${site.trainer.name?`<strong class="serif">${esc(site.trainer.name)}</strong>`:''}${site.trainer.career?`<span>${esc(site.trainer.career)}</span>`:''}</div>`:'';const socials=`<div class="social-links"><a href="${attr(site.contact.instagram)}" target="_blank" rel="noopener noreferrer" aria-label="Instagramを開く"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg><span>Instagram</span></a><a href="${attr(site.contact.line)}" target="_blank" rel="noopener noreferrer" aria-label="公式LINEを開く"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.1c0 4-4 7.3-9 7.3-.8 0-1.6-.1-2.3-.2L5.6 21l1.1-3.5C4.4 16.2 3 13.9 3 11.1 3 7.1 7 4 12 4s9 3.1 9 7.1Z"></path></svg><span>公式LINE</span></a></div>`;return `<!doctype html><html lang="ja">${head(site,`${site.name} | ${site.hero.title}`,site.description,site.url+'/',true)}<body>${header(site,true)}<main id="top">
@@ -78,7 +102,7 @@ function home(site,posts){const plans=site.prices.map(x=>`<article class="plan${
       <div class="info-list">
         <div class="info-row">
           <span>所在地</span>
-          <span>${esc(site.visit.address)}</span>
+          <address>${esc(site.visit.address)}</address>
         </div>
 
         <div class="info-row">

@@ -93,6 +93,10 @@
     "mapEmbed": "https://www.google.com/maps?q=%E4%B8%89%E9%87%8D%E7%9C%8C%E6%A1%91%E5%90%8D%E5%B8%82%E4%B8%AD%E5%A4%AE%E7%94%BA3-23%20%E6%A1%91%E5%90%8D%E3%82%B7%E3%83%86%E3%82%A3%E3%83%9B%E3%83%86%E3%83%AB&output=embed"
   },
   "name": "Personal gym Recipe",
+  "seo": {
+    "title": "桑名市・桑名駅のパーソナルジム Recipe｜フリーウェイト指導",
+    "description": "三重県桑名市、桑名駅・西桑名駅から徒歩圏内のPersonal gym Recipe。フリーウェイトを中心に、重心・姿勢・力の伝え方を一人ひとりに合わせて指導するパーソナルジムです。"
+  },
   "counseling": {
     "title": "カウンセリング",
     "price": "無料",
@@ -129,5 +133,5 @@
     "lead": "鍛えるだけではなく、身体を知り、重心を知り、正しく動けるようになる。トレーニングを、日常を豊かにする体験へ。",
     "image": "/assets/gym.jpg"
   },
-  "description": "Personal gym Recipe。重心コントロールとフリーウェイトを通して、日常やスポーツにつながる身体づくりをサポートします。"
+  "description": "三重県桑名市、桑名駅・西桑名駅から徒歩圏内のPersonal gym Recipe。フリーウェイトを中心に、重心・姿勢・力の伝え方を一人ひとりに合わせて指導するパーソナルジムです。"
 }

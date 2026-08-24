@@ -399,6 +399,7 @@ header{
   align-items:stretch;
 }
 .visit-copy{display:flex;flex-direction:column;justify-content:center}
+.info-row address{font-style:normal}
 .info-list{border-top:1px solid var(--line);margin-top:28px}
 .info-row{
   display:grid;
