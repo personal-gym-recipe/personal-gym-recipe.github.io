@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://personal-gym-recipe.github.io/sitemap.xml
