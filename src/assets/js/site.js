@@ -34,9 +34,7 @@
   if(!reduce && 'IntersectionObserver' in window){
     const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('show');ro.unobserve(e.target)}}),{threshold:.12});
     document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
-    const mo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:.52});
-    document.querySelectorAll('.manifesto-line').forEach(el=>mo.observe(el));
-  }else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));document.querySelectorAll('.manifesto-line').forEach(el=>el.classList.add('on'))}
+  }else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'))}
 
   const rail=document.getElementById('journalRail');
   const prev=document.getElementById('blogPrev');
