@@ -42,7 +42,7 @@ function markdown(md){
 }
 function copyDir(from,to){fs.mkdirSync(to,{recursive:true});for(const ent of fs.readdirSync(from,{withFileTypes:true})){const a=path.join(from,ent.name),b=path.join(to,ent.name);ent.isDirectory()?copyDir(a,b):fs.copyFileSync(a,b)}}
 function copySearchConsoleVerification(){const dir=path.join(src,"search-console");if(!fs.existsSync(dir))return;for(const name of fs.readdirSync(dir)){if(/^google[a-z0-9_-]+\.html$/i.test(name)){fs.copyFileSync(path.join(dir,name),path.join(out,name))}}}
-function header(site,home=false){const top=home?'':basePath+'/';const items=[['Recipeについて','concept'],['トレーナー','trainer'],['指導の流れ','flow'],['料金','price'],['アクセス','visit'],['ブログ','journal'],['Q&A','faq'],['お問い合わせ','contact']];const links=items.map(([label,id])=>`<a${id==='contact'?' class="nav-cta"':''} href="${top}#${id}">${label}</a>`).join('');return `<header><div class="container nav"><a class="brand" href="${home?'#top':top}">${esc(site.name)}<small>${esc(site.tagline)}</small></a><nav class="navlinks" aria-label="メインメニュー">${links}</nav><button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileMenu"><span>MENU</span><i></i><i></i></button></div></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="mobile-menu" id="mobileMenu" aria-hidden="true"><div class="mobile-menu-head"><span>MENU</span><button id="menuClose" type="button" aria-label="メニューを閉じる">×</button></div><nav aria-label="スマートフォンメニュー">${links}</nav></aside>`}
+function header(site,home=false){const top=home?'':basePath+'/';const items=[['Recipeについて','concept'],['トレーナー','trainer'],['指導の流れ','flow'],['料金','price'],['アクセス','visit'],['Q&A','faq'],['ブログ','journal'],['お問い合わせ','contact']];const links=items.map(([label,id])=>`<a${id==='contact'?' class="nav-cta"':''} href="${top}#${id}">${label}</a>`).join('');return `<header><div class="container nav"><a class="brand" href="${home?'#top':top}">${esc(site.name)}<small>${esc(site.tagline)}</small></a><nav class="navlinks" aria-label="メインメニュー">${links}</nav><button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileMenu"><span>MENU</span><i></i><i></i></button></div></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="mobile-menu" id="mobileMenu" aria-hidden="true"><div class="mobile-menu-head"><span>MENU</span><button id="menuClose" type="button" aria-label="メニューを閉じる">×</button></div><nav aria-label="スマートフォンメニュー">${links}</nav></aside>`}
 function footer(site){return `<footer><div class="container footer-row"><span>${esc(site.name)}</span><span>© ${new Date().getFullYear()} ${esc(site.name)}</span></div></footer>`}
 function businessStructuredData(site){
   const offers=[
@@ -78,23 +78,21 @@ function home(site,posts){const plans=site.prices.map(x=>`<article class="plan${
 </h1><p>${esc(site.hero.lead)}</p><div class="hero-actions"><a class="btn primary" href="#contact">お問い合わせ</a><a class="btn" href="#concept">Recipeを知る</a></div></div><div class="scroll-note">SCROLL</div></section>
 <section class="section" id="concept"><div class="container concept-grid reveal"><div><div class="eyebrow">01 / Philosophy</div><h2 class="serif">
   <span class="mobile-line">強くなる前に、</span>
-  <span class="mobile-line">自分の身体を知る。</span>
+  <span class="mobile-line">身体を知る。</span>
 </h2></div><div class="lead concept-copy"><p>${esc(site.concept.intro)}</p><p><strong>${esc(site.concept.strong)}</strong></p><p>${esc(site.concept.body)}</p></div></div></section>
-<section class="section method" id="method"><div class="container"><div class="section-head reveal"><div class="eyebrow">02 / Free Weight Method</div><h2 class="serif"><span class="mobile-line">身体が変わる、</span><span class="mobile-line">3つの順番。</span></h2><p class="lead">Recipeが大切にするのは、支えのないダンベルやバーベルを扱うフリーウェイトです。重力のある日常の中で身体を適切に支えるため、重さより先に「重心・姿勢・力の伝え方」を理解することから始めます。</p></div><div class="method-grid"><article class="method-card reveal" data-num="01"><div class="num">01</div><h3 class="serif">重心を知る。</h3><p>身体とウェイトの重心がどこにあるのか。まず、自分がどこで身体を支えているのかを知ることから始めます。</p></article><article class="method-card reveal" data-num="02"><div class="num">02</div><h3 class="serif">姿勢を覚える。</h3><p>力を出す前に、重心を捉え、力を受け止められる姿勢をつくる。それがすべてのトレーニングの土台になります。</p></article><article class="method-card reveal" data-num="03"><div class="num">03</div><h3 class="serif">力を伝えて動かす。</h3><p>重心と姿勢が整ったら、ウェイトを実際に動かし、身体から道具へ力を伝える感覚を身につけます。日常生活やスポーツにも応用できる身体の使い方を目指します。</p></article></div></div></section>
+<section class="section method" id="method"><div class="container"><div class="section-head reveal"><div class="eyebrow">02 / Free Weight Method</div><h2 class="serif">変化には、順番がある。</h2><p class="lead">Recipeが大切にするのは、支えのないダンベルやバーベルを扱うフリーウェイトです。重力のある日常の中で身体を適切に支えるため、重さより先に「重心・姿勢・力の伝え方」を理解することから始めます。</p></div><div class="method-grid"><article class="method-card reveal" data-num="01"><div class="num">01</div><h3 class="serif">重心を知る。</h3><p>身体とウェイトの重心がどこにあるのか。まず、自分がどこで身体を支えているのかを知ることから始めます。</p></article><article class="method-card reveal" data-num="02"><div class="num">02</div><h3 class="serif">姿勢を覚える。</h3><p>力を出す前に、重心を捉え、力を受け止められる姿勢をつくる。それがすべてのトレーニングの土台になります。</p></article><article class="method-card reveal" data-num="03"><div class="num">03</div><h3 class="serif">力を伝えて動かす。</h3><p>重心と姿勢が整ったら、ウェイトを実際に動かし、身体から道具へ力を伝える感覚を身につけます。日常生活やスポーツにも応用できる身体の使い方を目指します。</p></article></div></div></section>
 <section class="training"><div class="training-photo"><img src="${attr(safeUrl(site.training.image))}" alt="${attr(site.name)} トレーニング指導"></div><div class="training-copy reveal"><div class="eyebrow">Private Training</div><h2 class="serif mobile-one-line">一回、一回を、濃く。</h2><p>${esc(site.training.body)}</p></div></section>
 <section class="section trainer" id="trainer"><div class="container trainer-grid"><div class="trainer-photo reveal"><img src="${attr(safeUrl(site.trainer.image))}" alt="${attr(site.name)} トレーナー"></div><div class="trainer-copy reveal"><div class="eyebrow">03 / Trainer</div><h2 class="serif trainer-heading">
-  <span class="mobile-line">“できる”まで、</span>
-  <span class="mobile-line">わかりやすく伝える。</span>
+  “できる”まで、寄り添う。
 </h2>${trainerIdentity}<blockquote class="trainer-motto">「${esc(site.trainer.motto)}」</blockquote><p>${esc(site.trainer.body)}</p><div class="trainer-thoughts"><details><summary>フリーウェイトの魅力を、もっと深く伝えたい。</summary><p>${esc(site.story.openingReason)}</p></details><details><summary>あなたに合う“Recipe”を一緒につくる。</summary><p>${esc(site.story.nameOrigin)}</p></details><details><summary>運動を、日常の力に変えたい人へ。</summary><p>${esc(site.story.audience)}</p></details><details><summary>ジムの外でも生きる動きを。</summary><p>${esc(site.story.coachingPolicy)}</p></details></div></div></div></section>
-<section class="section flow" id="flow"><div class="container"><div class="section-head reveal"><div class="eyebrow">04 / Personal Flow</div><h2 class="serif"><span class="mobile-line">あなたを知ること</span><span class="mobile-line">から、始める。</span></h2><p class="lead">用意された内容を一律にこなすのではなく、目的と今の身体を知り、その人に合う進め方を一緒につくります。</p></div><div class="flow-grid">${flow}</div></div></section>
+<section class="section flow" id="flow"><div class="container"><div class="section-head reveal"><div class="eyebrow">04 / Personal Flow</div><h2 class="serif">まず、あなたを知る。</h2><p class="lead">用意された内容を一律にこなすのではなく、目的と今の身体を知り、その人に合う進め方を一緒につくります。</p></div><div class="flow-grid">${flow}</div></div></section>
 <section class="section price" id="price"><div class="container"><div class="section-head reveal"><div class="eyebrow">05 / Price</div><h2 class="serif"><span class="mobile-line">続け方も、</span><span class="mobile-line">あなたに合わせる。</span></h2><p class="lead">目的やトレーニング経験に合わせて、無理のないペースから始められます。</p></div><div class="price-fees reveal"><div class="price-fee"><span>COUNSELING</span><strong>${esc(site.counseling.title)}</strong><b>${esc(site.counseling.price)}</b></div><div class="price-fee"><span>MEMBERSHIP</span><strong>${esc(site.admission.title)}</strong><b>${esc(site.admission.price)}</b></div></div><div class="price-grid">${plans}</div></div></section>
 <section class="section visit" id="visit">
   <div class="container visit-grid">
     <div class="visit-copy reveal">
    <div class="eyebrow">06 / Visit</div>
     <h2 class="serif">
-  <span class="mobile-line">身体を変える時間を、</span>
-  <span class="mobile-line">もっと身近に。</span>
+  身体を変える時間を、身近に。
 </h2>   
       <p class="lead">${esc(site.visit.lead)}</p>
 
@@ -132,11 +130,10 @@ function home(site,posts){const plans=site.prices.map(x=>`<article class="plan${
     </div>
   </div>
 </section>
-<section class="section faq" id="faq"><div class="container"><div class="section-head reveal"><div class="eyebrow">07 / Q&amp;A</div><h2 class="serif"><span class="mobile-line">ご来店前の、</span><span class="mobile-line">よくあるご質問。</span></h2><p class="lead">質問を押すと回答が開きます。</p></div><div class="faq-list">${faq}</div></div></section>
+<section class="section faq" id="faq"><div class="container"><div class="section-head reveal"><div class="eyebrow">07 / Q&amp;A</div><h2 class="serif">よくあるご質問。</h2><p class="lead">質問を押すと回答が開きます。</p></div><div class="faq-list">${faq}</div></div></section>
 <section class="section contact" id="contact"><div class="container"><div class="contact-head reveal"><div class="contact-title-block"><div class="eyebrow">08 / Contact</div><h2 class="serif">
-  <span class="mobile-line">まずは、あなたの</span>
-  <span class="mobile-line">身体を知る</span>
-  <span class="mobile-line">時間から。</span>
+  <span class="mobile-line">まずは、</span>
+  <span class="mobile-line">身体を知ることから。</span>
 </h2></div><div class="contact-intro"><p class="lead">${esc(site.contact.lead)}</p></div></div>${contactActions(site)}</div></section>
 <section class="journal" id="journal"><div class="container"><div class="journal-head reveal"><div><div class="eyebrow">09 / Journal</div><h2 class="serif">Recipe Journal</h2><p class="lead">身体のことを、もう少し深く知りたい人へ。</p></div>${cards?`<div class="journal-nav" aria-label="ブログを横に移動"><button class="journal-arrow" id="blogPrev" aria-label="前の記事">←</button><button class="journal-arrow" id="blogNext" aria-label="次の記事">→</button></div>`:''}</div></div><div class="journal-rail" id="journalRail">${cards||'<p class="journal-empty">現在、公開中の記事はありません。</p>'}</div></section>
 </main>${footer(site)}</body></html>`}
