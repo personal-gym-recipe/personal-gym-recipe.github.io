@@ -9,6 +9,7 @@
   --sage-light:#6f8175;
   --warm:#b39b79;
   --dark:#151714;
+  --line-green:#037a39;
   --ease:cubic-bezier(.22,.72,.2,1);
 }
 *{box-sizing:border-box}
@@ -99,7 +100,7 @@ header{
 .nav-cta{
   padding:10px 17px;
   border-radius:999px;
-  background:var(--sage);
+  background:var(--line-green);
   color:#fff;
   font-weight:700;
 }
@@ -160,7 +161,7 @@ header{
   font-size:12px;
   font-weight:700;
 }
-.btn.primary{background:#fff;border-color:#fff;color:var(--ink)}
+.btn.primary{background:var(--line-green);border-color:var(--line-green);color:#fff}
 .btn.sage{background:var(--sage);border-color:var(--sage);color:#fff}
 .scroll-note{
   position:absolute;
@@ -1076,7 +1077,7 @@ body.menu-open{overflow:hidden}
 .contact-actions{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:14px;max-width:980px;margin-top:34px}
 .contact-action{display:flex;align-items:center;justify-content:center;gap:12px;min-height:68px;padding:16px 24px;border:1px solid var(--line);border-radius:999px;font-size:14px;font-weight:800;letter-spacing:.01em;transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease)}
 .contact-action svg{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7}
-.contact-action.line-primary{border-color:#06c755;background:#06c755;color:#fff;box-shadow:0 12px 28px rgba(6,199,85,.18)}
+.contact-action.line-primary{border-color:var(--line-green);background:var(--line-green);color:#fff;box-shadow:0 12px 28px rgba(6,199,85,.18)}
 .contact-action.instagram-secondary{background:#fff;color:var(--ink)}
 .contact-action:hover{transform:translateY(-2px)}
 .contact-action:focus-visible{outline:3px solid rgba(86,107,92,.28);outline-offset:3px}

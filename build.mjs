@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const __dirname=path.dirname(fileURLToPath(import.meta.url));
 const src=path.join(__dirname,"src"), out=path.join(__dirname,"docs");
 const basePath="";
-const assetVersion="20260825-1";
+const assetVersion="20260911-1";
 const readJSON=p=>JSON.parse(fs.readFileSync(p,"utf8"));
 const esc=s=>String(s??"").replace(/[&<>\"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const attr=esc;
