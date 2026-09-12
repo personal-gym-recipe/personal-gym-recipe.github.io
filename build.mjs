@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const __dirname=path.dirname(fileURLToPath(import.meta.url));
 const src=path.join(__dirname,"src"), out=path.join(__dirname,"docs");
 const basePath="";
-const assetVersion="20260912-3";
+const assetVersion="20260912-4";
 const readJSON=p=>JSON.parse(fs.readFileSync(p,"utf8"));
 const esc=s=>String(s??"").replace(/[&<>\"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const attr=esc;
@@ -80,7 +80,7 @@ function home(site,posts){const plans=site.prices.map(x=>`<article class="plan${
   <span class="mobile-line">強くなる前に、</span>
   <span class="mobile-line">身体を知る。</span>
 </h2></div><div class="lead concept-copy"><p>${esc(site.concept.intro)}</p><p><strong>${esc(site.concept.strong)}</strong></p><p>${esc(site.concept.body)}</p></div></div></section>
-<section class="section method" id="method"><div class="container"><div class="section-head reveal"><div class="eyebrow">02 / Free Weight Method</div><h2 class="serif">変化には、順番がある。</h2><p class="lead">ダンベルやバーベルを使うフリーウェイトでは、重さを支え、自分で動きをコントロールします。Recipeでは、次の3つを順に練習します。</p></div><div class="method-grid"><article class="method-card reveal" data-num="01"><div class="num">01</div><h3 class="serif">重心を知る。</h3><p>身体とウェイトの重心を確かめ、どこで重さを支えているかをつかみます。</p></article><article class="method-card reveal" data-num="02"><div class="num">02</div><h3 class="serif">姿勢を覚える。</h3><p>重心を捉え、ウェイトの重さを受け止められる姿勢を練習します。</p></article><article class="method-card reveal" data-num="03"><div class="num">03</div><h3 class="serif">力を伝えて動かす。</h3><p>姿勢を保ちながらウェイトを動かし、身体から道具へ力を伝える感覚を身につけます。</p></article></div></div></section>
+<section class="section method" id="method"><div class="container"><div class="section-head reveal"><div class="eyebrow">02 / Free Weight Method</div><h2 class="serif">変化には、順番がある。</h2><p class="lead method-lead"><span class="method-sentence">ダンベルやバーベルを使うフリーウェイトでは、重さを支え、自分で動きをコントロールします。</span><span class="method-sentence method-sentence-emphasis"><span class="method-phrase">Recipeでは、次の3つを</span><span class="method-phrase">順に練習します。</span></span></p></div><div class="method-grid"><article class="method-card reveal" data-num="01"><div class="num">01</div><h3 class="serif">重心を知る。</h3><p>身体とウェイトの重心を確かめ、どこで重さを支えているかをつかみます。</p></article><article class="method-card reveal" data-num="02"><div class="num">02</div><h3 class="serif">姿勢を覚える。</h3><p>重心を捉え、ウェイトの重さを受け止められる姿勢を練習します。</p></article><article class="method-card reveal" data-num="03"><div class="num">03</div><h3 class="serif">力を伝えて動かす。</h3><p>姿勢を保ちながらウェイトを動かし、身体から道具へ力を伝える感覚を身につけます。</p></article></div></div></section>
 <section class="training"><div class="container training-inner"><div class="training-photo"><img src="${attr(safeUrl(site.training.image))}" alt="${attr(site.name)} トレーニング指導" width="964" height="1698" loading="lazy"></div><div class="training-copy reveal"><div class="eyebrow">Private Training</div><h2 class="serif mobile-one-line">一回、一回を、濃く。</h2><p>${esc(site.training.body)}</p></div></div></section>
 <section class="section trainer" id="trainer"><div class="container trainer-grid"><div class="trainer-photo reveal"><img src="${attr(safeUrl(site.trainer.image))}" alt="${attr(site.name)} トレーナー"></div><div class="trainer-copy reveal"><div class="eyebrow">03 / Trainer</div><h2 class="serif trainer-heading">
   “できる”まで、寄り添う。
