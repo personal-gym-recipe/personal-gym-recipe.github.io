@@ -1068,10 +1068,12 @@ body.menu-open{overflow:hidden}
 
 /* FAQ */
 .faq{background:var(--paper2)}
+.faq .section-head{margin-left:auto;margin-right:auto;text-align:center}
 .faq-list{max-width:920px}
 .faq-item summary{font:700 18px "Yu Mincho","Hiragino Mincho ProN",serif;padding-top:23px;padding-bottom:23px}
 .faq-item summary::after{top:19px}
 .faq-item p{margin:0;padding:0 54px 24px 0;color:var(--muted)}
+.faq-item .qa-label{color:var(--sage);font-weight:800;margin-right:10px}
 
 /* Contact actions */
 .contact-actions{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:14px;max-width:980px;margin-top:34px}
