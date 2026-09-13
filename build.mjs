@@ -128,7 +128,7 @@ ${site.sections.concept.titleLines.map(l=>`  <span class="mobile-line">${esc(l)}
   </div>
 </section>
 <section class="section faq" id="faq"><div class="container"><div class="section-head reveal"><div class="eyebrow">${esc(site.sections.faq.eyebrow)}</div><h2 class="serif">${esc(site.sections.faq.title)}</h2></div><div class="faq-list">${faq}</div></div></section>
-<section class="section contact" id="contact"><div class="container"><div class="contact-head reveal"><div class="contact-title-block"><div class="eyebrow">${esc(site.sections.contact.eyebrow)}</div><h2 class="serif">${esc(site.contact.headline)}</h2></div><div class="contact-intro"><p class="lead">${esc(site.contact.lead)}</p></div></div><div class="trial-guide reveal"><dl class="trial-facts"><div><dt>${esc(site.contact.trialContentLabel)}</dt><dd>${esc(site.contact.trialContent)}</dd></div><div><dt>${esc(site.contact.trialDurationLabel)}</dt><dd>${esc(site.contact.trialDuration)}</dd></div></dl><p>${esc(site.contact.bookingNote)}<br>${esc(site.contact.decisionNote)}</p></div>${contactActions(site)}</div></section>
+<section class="section contact" id="contact"><div class="container"><div class="contact-head reveal"><div class="contact-title-block"><div class="eyebrow">${esc(site.sections.contact.eyebrow)}</div><h2 class="serif">${esc(site.sections.contact.title)}</h2></div><div class="contact-intro"><p class="lead">${esc(site.contact.lead)}</p></div></div><div class="trial-guide reveal"><dl class="trial-facts"><div><dt>${esc(site.contact.trialContentLabel)}</dt><dd>${esc(site.contact.trialContent)}</dd></div><div><dt>${esc(site.contact.trialDurationLabel)}</dt><dd>${esc(site.contact.trialDuration)}</dd></div></dl><p>${esc(site.contact.bookingNote)}<br>${esc(site.contact.decisionNote)}</p></div>${contactActions(site)}</div></section>
 <section class="journal" id="journal"><div class="container"><div class="journal-head reveal"><div><div class="eyebrow">${esc(site.sections.journal.eyebrow)}</div><h2 class="serif">${esc(site.sections.journal.title)}</h2><p class="lead">${esc(site.sections.journal.lead)}</p></div>${cards?`<div class="journal-nav" aria-label="ブログを横に移動"><button class="journal-arrow" id="blogPrev" aria-label="前の記事">←</button><button class="journal-arrow" id="blogNext" aria-label="次の記事">→</button></div>`:''}</div></div><div class="journal-rail" id="journalRail">${cards||`<p class="journal-empty">${esc(site.sections.journal.emptyMessage)}</p>`}</div></section>
 </main>${footer(site)}</body></html>`}
 function article(site,p){const cover=p.image?`<div class="article-cover"><img src="${attr(safeUrl(p.image))}" alt="${attr(p.title)}"></div>`:"";return `<!doctype html><html lang="ja">${head(site,`${p.title} | ${site.name}`,p.excerpt,`${site.url}/journal/${encodeURIComponent(p.slug)}/`)}<body>${header(site)}<main class="article-page"><section class="article-hero"><div class="container"><div class="eyebrow">${fmtDate(p.date)} / ${esc(p.category)}</div><h1 class="serif">${esc(p.title)}</h1><p class="article-excerpt">${esc(p.excerpt)}</p></div>${cover}</section><article class="article-content">${markdown(p.body)}<div class="article-tools"><button class="like-btn" data-like-slug="${attr(p.slug)}">👍 参考になった <span>0</span></button><a class="back-journal" href="${basePath}/#journal">← ${esc(site.sections.journal.title)}へ戻る</a></div></article></main>${footer(site)}</body></html>`}
@@ -147,3 +147,143 @@ const urls=['/',...posts.map(p=>`/journal/${encodeURIComponent(p.slug)}/`)];
 fs.writeFileSync(path.join(out,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map(u=>`<url><loc>${esc(site.url+u)}</loc></url>`).join('')}</urlset>`);
 fs.writeFileSync(path.join(out,'robots.txt'),`User-agent: *\nAllow: /\nSitemap: ${site.url}/sitemap.xml\n`);
 console.log(`Built ${posts.length} journal pages into ${out}`);
+
+/* ==========================================================================
+   公開前チェック
+   site.json の記入漏れ、存在しない画像の参照、リンク切れを検出する。
+   エラーが1件でもあればビルドを失敗させ、GitHub Actions 側も失敗扱いになる。
+   ========================================================================== */
+
+const errors = [];
+const warnings = [];
+
+function requireText(label, value) {
+  if (value === undefined || value === null || String(value).trim() === "") {
+    errors.push(`site.json の ${label} が未設定です`);
+  }
+}
+
+function requireList(label, value, itemCheck) {
+  if (!Array.isArray(value) || value.length === 0) {
+    errors.push(`site.json の ${label} が空です`);
+    return;
+  }
+  if (itemCheck) value.forEach((item, i) => itemCheck(item, `${label}[${i}]`));
+}
+
+function requireUrl(label, value) {
+  requireText(label, value);
+  if (value && !/^https?:\/\//.test(String(value))) {
+    errors.push(`site.json の ${label} は http(s):// で始まる必要があります（現在: ${value}）`);
+  }
+}
+
+// --- 1. サイト全体の必須項目 ---
+requireText("name", site.name);
+requireText("tagline", site.tagline);
+requireText("description", site.description);
+requireUrl("url", site.url);
+requireText("seo.title", site.seo?.title);
+requireText("seo.description", site.seo?.description);
+
+// --- 2. 集客導線（ここが欠けると問い合わせが受け取れない） ---
+requireUrl("contact.line", site.contact?.line);
+requireUrl("contact.instagram", site.contact?.instagram);
+requireText("contact.lineCta", site.contact?.lineCta);
+requireText("contact.instagramCta", site.contact?.instagramCta);
+
+// --- 3. ヒーローと各セクションの見出し ---
+requireText("hero.title", site.hero?.title);
+requireText("hero.image", site.hero?.image);
+requireList("sections.hero.titleLines", site.sections?.hero?.titleLines);
+for (const [id, section] of Object.entries(site.sections || {})) {
+  if (id === "hero") continue;
+  requireText(`sections.${id}.eyebrow`, section.eyebrow);
+  if (!section.title && !Array.isArray(section.titleLines)) {
+    errors.push(`site.json の sections.${id} に title か titleLines のどちらかが必要です`);
+  }
+}
+
+// --- 4. 一覧系のデータ ---
+requireList("nav", site.nav, (item, label) => {
+  requireText(`${label}.label`, item.label);
+  requireText(`${label}.id`, item.id);
+});
+requireList("prices", site.prices, (item, label) => {
+  requireText(`${label}.name`, item.name);
+  requireText(`${label}.price`, item.price);
+});
+requireList("faq", site.faq, (item, label) => {
+  requireText(`${label}.question`, item.question);
+  requireText(`${label}.answer`, item.answer);
+});
+requireList("flow", site.flow, (item, label) => requireText(`${label}.title`, item.title));
+requireList("method.steps", site.method?.steps, (item, label) => requireText(`${label}.title`, item.title));
+requireList("trainerThoughts", site.trainerThoughts, (item, label) => {
+  requireText(`${label}.question`, item.question);
+  requireText(`${label}.answer`, item.answer);
+});
+
+// --- 5. 生成されたHTMLを読み、参照先が実在するか確認する ---
+function collectHtmlFiles(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) return collectHtmlFiles(full);
+    return entry.name.endsWith(".html") ? [full] : [];
+  });
+}
+
+const htmlFiles = collectHtmlFiles(out);
+const referencedFiles = new Set();
+
+for (const file of htmlFiles) {
+  const html = fs.readFileSync(file, "utf8");
+  const shown = path.relative(out, file);
+
+  // 参照しているローカルファイルが存在するか
+  for (const [, ref] of html.matchAll(/(?:src|href)="([^"]+)"/g)) {
+    let local = ref;
+    if (site.url && local.startsWith(site.url)) local = local.slice(site.url.length) || "/";
+    if (/^(https?:|data:|mailto:|tel:|#|\/\/)/.test(local)) continue;
+    const cleaned = decodeURIComponent(local.split("?")[0].split("#")[0]);
+    if (!cleaned || cleaned.endsWith("/")) continue;
+    const target = path.join(out, cleaned.replace(/^\//, ""));
+    referencedFiles.add(path.resolve(target));
+    if (!fs.existsSync(target)) {
+      errors.push(`${shown} が参照している ${ref} が見つかりません`);
+    }
+  }
+
+  // ページ内リンク（#concept など）の飛び先が存在するか
+  const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map(m => m[1]));
+  for (const [, anchor] of html.matchAll(/href="#([^"]+)"/g)) {
+    if (!ids.has(anchor)) {
+      errors.push(`${shown} のリンク #${anchor} に対応する要素がありません`);
+    }
+  }
+}
+
+// --- 6. どこからも参照されていない画像（削除し忘れの検出） ---
+function collectAssetFiles(dir) {
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
+    const full = path.join(dir, entry.name);
+    return entry.isDirectory() ? collectAssetFiles(full) : [full];
+  });
+}
+
+for (const file of collectAssetFiles(path.join(out, "assets"))) {
+  if (/\.(css|js)$/.test(file)) continue;
+  if (!referencedFiles.has(path.resolve(file))) {
+    warnings.push(`${path.relative(out, file)} はどこからも参照されていません`);
+  }
+}
+
+// --- 結果 ---
+for (const warning of warnings) console.warn(`warning: ${warning}`);
+if (errors.length) {
+  console.error(`\n公開前チェックで ${errors.length} 件の問題が見つかりました:`);
+  for (const error of errors) console.error(`  - ${error}`);
+  process.exit(1);
+}
+console.log(`公開前チェック: 問題なし${warnings.length ? `（警告 ${warnings.length} 件）` : ""}`);

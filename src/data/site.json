@@ -85,7 +85,8 @@
       "title": "よくあるご質問。"
     },
     "contact": {
-      "eyebrow": "08 / Contact"
+      "eyebrow": "08 / Contact",
+      "title": "初回体験・ご相談"
     },
     "journal": {
       "eyebrow": "09 / Journal",
@@ -95,7 +96,6 @@
     }
   },
   "contact": {
-    "headline": "初回体験・ご相談",
     "lead": "初回体験のご予約・ご相談は、公式LINEから受け付けています。",
     "trialContentLabel": "初回体験の内容",
     "trialContent": "カウンセリング＋トレーニング体験",
