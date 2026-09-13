@@ -1,38 +1,193 @@
 {
+  "nav": [
+    {
+      "label": "Recipeについて",
+      "id": "concept"
+    },
+    {
+      "label": "トレーナー",
+      "id": "trainer"
+    },
+    {
+      "label": "指導の流れ",
+      "id": "flow"
+    },
+    {
+      "label": "料金",
+      "id": "price"
+    },
+    {
+      "label": "アクセス",
+      "id": "visit"
+    },
+    {
+      "label": "Q&A",
+      "id": "faq"
+    },
+    {
+      "label": "ブログ",
+      "id": "journal"
+    },
+    {
+      "label": "お問い合わせ",
+      "id": "contact"
+    }
+  ],
+  "sections": {
+    "hero": {
+      "titleLines": [
+        "身体には、",
+        "あなただけの",
+        "Recipeがある。"
+      ],
+      "primaryCta": "お問い合わせ",
+      "secondaryCta": "Recipeを知る"
+    },
+    "concept": {
+      "eyebrow": "01 / Philosophy",
+      "titleLines": [
+        "強くなる前に、",
+        "身体を知る。"
+      ]
+    },
+    "method": {
+      "eyebrow": "02 / Free Weight Method",
+      "title": "変化には、順番がある。"
+    },
+    "training": {
+      "eyebrow": "Private Training",
+      "title": "一回、一回を、濃く。"
+    },
+    "trainer": {
+      "eyebrow": "03 / Trainer",
+      "title": "“できる”まで、寄り添う。"
+    },
+    "flow": {
+      "eyebrow": "04 / Personal Flow",
+      "title": "まず、あなたを知る。",
+      "lead": "目的を伺い、身体の状態を確かめてから、その日に取り組むトレーニングを提案します。"
+    },
+    "price": {
+      "eyebrow": "05 / Price",
+      "titleLines": [
+        "続け方も、",
+        "あなたに合わせる。"
+      ],
+      "lead": "目的やトレーニング経験に合わせて、無理のないペースから始められます。"
+    },
+    "visit": {
+      "eyebrow": "06 / Visit",
+      "title": "身体を変える時間を、身近に。",
+      "mapCardLabel": "桑名シティホテル 4F"
+    },
+    "faq": {
+      "eyebrow": "07 / Q&A",
+      "title": "よくあるご質問。"
+    },
+    "contact": {
+      "eyebrow": "08 / Contact"
+    },
+    "journal": {
+      "eyebrow": "09 / Journal",
+      "title": "Recipe Journal",
+      "lead": "身体のことを、もう少し深く知りたい人へ。",
+      "emptyMessage": "現在、公開中の記事はありません。"
+    }
+  },
   "contact": {
     "headline": "初回体験・ご相談",
     "lead": "初回体験のご予約・ご相談は、公式LINEから受け付けています。",
+    "trialContentLabel": "初回体験の内容",
     "trialContent": "カウンセリング＋トレーニング体験",
+    "trialDurationLabel": "所要時間",
     "trialDuration": "目安60分",
     "bookingNote": "ご予約後、当日の持ち物をLINEでご案内します。",
     "decisionNote": "ご入会は、体験後に持ち帰ってご検討いただけます。",
+    "lineCta": "初回体験をLINEで申し込む",
+    "lineAriaLabel": "公式LINEで初回体験を申し込む",
+    "instagramCta": "Instagramでジムの雰囲気を見る",
+    "instagramAriaLabel": "Instagramでジムの雰囲気を見る",
     "instagram": "https://www.instagram.com/recipe0801/",
     "line": "https://line.me/R/ti/p/@992ywvaz"
   },
   "concept": {
-    "title": "強くなる前に、自分の身体を知る。",
     "intro": "目標や身体の特徴、生活スタイルに合わせて、進め方は変わります。",
     "strong": "あなたに合う身体づくりの「レシピ」を提案します。",
     "body": "ウェイトを扱う時間を、日常生活やスポーツで生きる動きにつなげる。それがRecipeの考えるトレーニングです。"
   },
-  "story": {
-    "openingReason": "得意とするフリーウェイトを通じて、身体の重心・姿勢・力の伝え方を、一人ひとりに合わせて深く伝えたい。そんな想いから、Personal gym Recipeを始めました。",
-    "nameOrigin": "目標や身体の特徴、生活スタイルは人それぞれ。決まった正解を押しつけるのではなく、その人に合う身体づくりの「レシピ」を提案することが、Recipeという店名に込めた意味です。",
-    "audience": "運動習慣をつくりたい方、日常生活で疲れにくい身体を目指す方、トレーニングをスポーツに役立てたい方へ。今の身体と目的に合わせた進め方を一緒に考えます。",
-    "coachingPolicy": "フリーウェイトを中心に、ジムの中だけで終わらない、日常生活やスポーツにも生きる身体の使い方を指導します。"
+  "method": {
+    "leadSentences": [
+      {
+        "text": "ダンベルやバーベルを使うフリーウェイトでは、重さを支え、自分で動きをコントロールします。"
+      },
+      {
+        "text": "Recipeでは、次の3つを順に練習します。",
+        "emphasis": true,
+        "phrases": [
+          "Recipeでは、次の3つを",
+          "順に練習します。"
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "num": "01",
+        "title": "重心を知る。",
+        "body": "身体とウェイトの重心を確かめ、どこで重さを支えているかをつかみます。"
+      },
+      {
+        "num": "02",
+        "title": "姿勢を覚える。",
+        "body": "重心を捉え、ウェイトの重さを受け止められる姿勢を練習します。"
+      },
+      {
+        "num": "03",
+        "title": "力を伝えて動かす。",
+        "body": "姿勢を保ちながらウェイトを動かし、身体から道具へ力を伝える感覚を身につけます。"
+      }
+    ]
   },
+  "trainerThoughts": [
+    {
+      "question": "フリーウェイトの魅力を、もっと深く伝えたい。",
+      "answer": "得意とするフリーウェイトを通じて、身体の重心・姿勢・力の伝え方を、一人ひとりに合わせて深く伝えたい。そんな想いから、Personal gym Recipeを始めました。"
+    },
+    {
+      "question": "あなたに合う“Recipe”を一緒につくる。",
+      "answer": "目標や身体の特徴、生活スタイルは人それぞれ。決まった正解を押しつけるのではなく、その人に合う身体づくりの「レシピ」を提案することが、Recipeという店名に込めた意味です。"
+    },
+    {
+      "question": "運動を、日常の力に変えたい人へ。",
+      "answer": "運動習慣をつくりたい方、日常生活で疲れにくい身体を目指す方、トレーニングをスポーツに役立てたい方へ。今の身体と目的に合わせた進め方を一緒に考えます。"
+    },
+    {
+      "question": "ジムの外でも生きる動きを。",
+      "answer": "フリーウェイトを中心に、ジムの中だけで終わらない、日常生活やスポーツにも生きる身体の使い方を指導します。"
+    }
+  ],
   "flow": [
     {
       "title": "目的を聞く",
-      "body": "目標や運動経験、普段の過ごし方を伺います。気になっていることもお聞かせください。"
+      "body": "目標や運動経験、普段の過ごし方を伺います。気になっていることもお聞かせください。",
+      "titleLines": [
+        "目的を聞く"
+      ]
     },
     {
       "title": "身体の状態を確認する",
-      "body": "立ち方や姿勢、重心の位置、動かしやすさを一緒に確認します。"
+      "body": "立ち方や姿勢、重心の位置、動かしやすさを一緒に確認します。",
+      "titleLines": [
+        "身体の状態を",
+        "確認する"
+      ]
     },
     {
       "title": "その人に合う方法を提案する",
-      "body": "目的とその日の身体の状態に合わせて、種目や負荷を調整します。"
+      "body": "目的とその日の身体の状態に合わせて、種目や負荷を調整します。",
+      "titleLines": [
+        "その人に合う",
+        "方法を提案する"
+      ]
     }
   ],
   "faq": [
@@ -92,55 +247,64 @@
     }
   ],
   "visit": {
-    "headline": "通う時間も、トレーニングの一部に。",
     "lead": "桑名シティホテル4F。\n駅から歩けて、車でも通いやすい環境です。",
     "address": "三重県桑名市中央町3-23 桑名シティホテル4F",
+    "streetAddress": "中央町3-23 桑名シティホテル4F",
+    "locality": "桑名市",
+    "region": "三重県",
     "access": "西桑名駅から徒歩圏内 / 桑名駅からも徒歩でアクセス可能",
     "parking": "桑名シティホテル内駐車場を利用可 / Recipe利用時は駐車代無料",
-    "mapEmbed": "https://www.google.com/maps?q=%E4%B8%89%E9%87%8D%E7%9C%8C%E6%A1%91%E5%90%8D%E5%B8%82%E4%B8%AD%E5%A4%AE%E7%94%BA3-23%20%E6%A1%91%E5%90%8D%E3%82%B7%E3%83%86%E3%82%A3%E3%83%9B%E3%83%86%E3%83%AB&output=embed"
+    "mapEmbed": "https://www.google.com/maps?q=%E4%B8%89%E9%87%8D%E7%9C%8C%E6%A1%91%E5%90%8D%E5%B8%82%E4%B8%AD%E5%A4%AE%E7%94%BA3-23%20%E6%A1%91%E5%90%8D%E3%82%B7%E3%83%86%E3%82%A3%E3%83%9B%E3%83%86%E3%83%AB&output=embed",
+    "mapTitle": "周辺マップ"
   },
   "name": "Personal gym Recipe",
   "seo": {
     "title": "桑名市・桑名駅のパーソナルジム Recipe｜フリーウェイト指導",
-    "description": "三重県桑名市、桑名駅・西桑名駅から徒歩圏内のPersonal gym Recipe。フリーウェイトを中心に、重心・姿勢・力の伝え方を一人ひとりに合わせて指導するパーソナルジムです。"
+    "description": "三重県桑名市、桑名駅・西桑名駅から徒歩圏内のPersonal gym Recipe。フリーウェイトを中心に、重心・姿勢・力の伝え方を一人ひとりに合わせて指導するパーソナルジムです。",
+    "priceRange": "カウンセリング無料・入会金22,000円・4回28,000円〜"
   },
   "counseling": {
     "title": "カウンセリング",
     "price": "無料",
-    "body": "まずは現在のお悩みや目標をお聞きし、無理のない進め方をご案内します。"
+    "body": "まずは現在のお悩みや目標をお聞きし、無理のない進め方をご案内します。",
+    "label": "COUNSELING"
   },
   "admission": {
     "title": "入会金",
-    "price": "22,000円"
+    "price": "22,000円",
+    "label": "MEMBERSHIP"
   },
   "tagline": "TRAINING FOR BETTER DAILY LIFE",
   "url": "https://personal-gym-recipe.github.io",
   "trainer": {
     "name": "美濃健太",
-    "birth": "1994年生まれ",
-    "origin": "北海道札幌市出身",
+    "jobTitle": "トレーナー",
     "award": "コンテスト受賞歴あり",
     "career": "1994年生まれ / 北海道札幌市出身 / トレーナー歴9年 / 指導の中心 BIG3 / コンテスト受賞歴あり",
     "motto": "トレーニングで日常をより豊かに",
-    "title": "“できる”まで、わかりやすく伝える。",
     "body": "フィジーク、格闘技、ウエイトリフティングなど、さまざまな競技を経験。重心コントロールを大切に、身体の使い方をわかりやすく伝えます。",
     "image": "/assets/trainer.jpg",
-    "years": "9",
-    "core": "BIG 3"
+    "imageAlt": "トレーナー"
   },
   "training": {
-    "title": "一回一回を、濃く。",
     "body": "周囲を気にせず、フォーム、呼吸、重心の感覚と向き合う。自分の身体だけに集中する時間をつくります。",
-    "image": "/assets/uploads/img_1804.jpeg"
+    "image": "/assets/uploads/img_1804.jpeg",
+    "imageAlt": "トレーニング指導"
   },
   "hero": {
-    "eyebrow": "Personal gym Recipe",
     "location": "桑名市・桑名シティホテル4F",
     "specialty": "フリーウェイト中心のパーソナルジム",
     "title": "身体には、あなただけのRecipeがある。",
     "lead": "運動習慣づくりから、スポーツのための身体づくりまで。",
     "trainerLead": "一人ひとりの目的に合わせて、身体の使い方を丁寧に伝えます。",
-    "image": "/assets/hero-gym-20260912.jpg"
+    "image": "/assets/hero-gym-20260912.jpg",
+    "imageAlt": "ジム内観"
+  },
+  "notFound": {
+    "title": "ページが見つかりません。",
+    "body": "URLをご確認いただくか、トップページへお戻りください。",
+    "cta": "トップページへ",
+    "metaTitle": "ページが見つかりません"
   },
   "description": "三重県桑名市、桑名駅・西桑名駅から徒歩圏内のPersonal gym Recipe。フリーウェイトを中心に、重心・姿勢・力の伝え方を一人ひとりに合わせて指導するパーソナルジムです。"
 }
