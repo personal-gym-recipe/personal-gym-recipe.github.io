@@ -36,19 +36,4 @@
     document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
   }else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'))}
 
-  const rail=document.getElementById('journalRail');
-  const prev=document.getElementById('blogPrev');
-  const next=document.getElementById('blogNext');
-  if(rail&&prev&&next){
-    const step=()=>{const c=rail.querySelector('.post');return c?(c.getBoundingClientRect().width+(parseFloat(getComputedStyle(rail).gap)||0)):rail.clientWidth};
-    const state=()=>{const over=rail.scrollWidth>rail.clientWidth+2;rail.classList.toggle('has-overflow',over);prev.disabled=!over||rail.scrollLeft<=2;next.disabled=!over||rail.scrollLeft>=rail.scrollWidth-rail.clientWidth-2};
-    prev.addEventListener('click',()=>rail.scrollBy({left:-step(),behavior:'smooth'}));next.addEventListener('click',()=>rail.scrollBy({left:step(),behavior:'smooth'}));rail.addEventListener('scroll',()=>requestAnimationFrame(state),{passive:true});window.addEventListener('resize',state);requestAnimationFrame(state);
-  }
-
-  const buttons=[...document.querySelectorAll('.like-btn[data-like-slug]')];
-  const bySlug=new Map();
-  buttons.forEach(btn=>{const slug=btn.dataset.likeSlug;if(!bySlug.has(slug))bySlug.set(slug,[]);bySlug.get(slug).push(btn)});
-  const paint=slug=>{const liked=localStorage.getItem('recipe-liked-'+slug)==='1';(bySlug.get(slug)||[]).forEach(btn=>{const s=btn.querySelector('span');if(s)s.textContent=liked?'1':'0';btn.classList.toggle('liked',liked)})};
-  bySlug.forEach((_,slug)=>paint(slug));
-  buttons.forEach(btn=>btn.addEventListener('click',()=>{const slug=btn.dataset.likeSlug;if(localStorage.getItem('recipe-liked-'+slug)==='1')return;localStorage.setItem('recipe-liked-'+slug,'1');paint(slug)}));
 })();

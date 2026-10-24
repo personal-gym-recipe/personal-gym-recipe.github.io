@@ -1,0 +1,40 @@
+{
+  "images": [
+    {
+      "src": "/assets/gallery/gallery-01.jpg",
+      "alt": "明るい店内全体とトレーニングラック",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "src": "/assets/gallery/gallery-02.jpg",
+      "alt": "店内に設置されたトレーニングマシン",
+      "width": 480,
+      "height": 640
+    },
+    {
+      "src": "/assets/gallery/gallery-03.jpg",
+      "alt": "店内を彩る観葉植物と落ち着いた空間",
+      "width": 640,
+      "height": 640
+    },
+    {
+      "src": "/assets/gallery/gallery-04.jpg",
+      "alt": "照明を落とした店内とトレーニングラック",
+      "width": 640,
+      "height": 427
+    },
+    {
+      "src": "/assets/gallery/gallery-05.jpg",
+      "alt": "トレーナーによるパーソナルトレーニング指導",
+      "width": 512,
+      "height": 640
+    },
+    {
+      "src": "/assets/gallery/gallery-06.jpg",
+      "alt": "バーベルとウェイトプレートのクローズアップ",
+      "width": 512,
+      "height": 640
+    }
+  ]
+}

@@ -9,6 +9,10 @@
       "id": "trainer"
     },
     {
+      "label": "ギャラリー",
+      "id": "gallery"
+    },
+    {
       "label": "指導の流れ",
       "id": "flow"
     },
@@ -23,10 +27,6 @@
     {
       "label": "Q&A",
       "id": "faq"
-    },
-    {
-      "label": "ブログ",
-      "id": "journal"
     },
     {
       "label": "お問い合わせ",
@@ -62,13 +62,18 @@
       "eyebrow": "03 / Trainer",
       "title": "“できる”まで、寄り添う。"
     },
+    "gallery": {
+      "eyebrow": "04 / Gallery",
+      "title": "Recipeの空間。",
+      "lead": "店内の雰囲気や、トレーニング環境をご覧ください。"
+    },
     "flow": {
-      "eyebrow": "04 / Personal Flow",
+      "eyebrow": "05 / Personal Flow",
       "title": "まず、あなたを知る。",
       "lead": "目的を伺い、身体の状態を確かめてから、その日に取り組むトレーニングを提案します。"
     },
     "price": {
-      "eyebrow": "05 / Price",
+      "eyebrow": "06 / Price",
       "titleLines": [
         "続け方も、",
         "あなたに合わせる。"
@@ -76,23 +81,17 @@
       "lead": "目的やトレーニング経験に合わせて、無理のないペースから始められます。"
     },
     "visit": {
-      "eyebrow": "06 / Visit",
+      "eyebrow": "07 / Visit",
       "title": "身体を変える時間を、身近に。",
       "mapCardLabel": "桑名シティホテル 4F"
     },
     "faq": {
-      "eyebrow": "07 / Q&A",
+      "eyebrow": "08 / Q&A",
       "title": "よくあるご質問。"
     },
     "contact": {
-      "eyebrow": "08 / Contact",
+      "eyebrow": "09 / Contact",
       "title": "初回体験・ご相談"
-    },
-    "journal": {
-      "eyebrow": "09 / Journal",
-      "title": "Recipe Journal",
-      "lead": "身体のことを、もう少し深く知りたい人へ。",
-      "emptyMessage": "現在、公開中の記事はありません。"
     }
   },
   "contact": {
@@ -165,6 +164,46 @@
       "answer": "フリーウェイトを中心に、ジムの中だけで終わらない、日常生活やスポーツにも生きる身体の使い方を指導します。"
     }
   ],
+  "gallery": {
+    "images": [
+      {
+        "src": "/assets/gallery/gallery-01.jpg",
+        "alt": "明るい店内全体とトレーニングラック",
+        "width": 640,
+        "height": 640
+      },
+      {
+        "src": "/assets/gallery/gallery-02.jpg",
+        "alt": "店内に設置されたトレーニングマシン",
+        "width": 480,
+        "height": 640
+      },
+      {
+        "src": "/assets/gallery/gallery-03.jpg",
+        "alt": "店内を彩る観葉植物と落ち着いた空間",
+        "width": 640,
+        "height": 640
+      },
+      {
+        "src": "/assets/gallery/gallery-04.jpg",
+        "alt": "照明を落とした店内とトレーニングラック",
+        "width": 640,
+        "height": 427
+      },
+      {
+        "src": "/assets/gallery/gallery-05.jpg",
+        "alt": "トレーナーによるパーソナルトレーニング指導",
+        "width": 512,
+        "height": 640
+      },
+      {
+        "src": "/assets/gallery/gallery-06.jpg",
+        "alt": "バーベルとウェイトプレートのクローズアップ",
+        "width": 512,
+        "height": 640
+      }
+    ]
+  },
   "flow": [
     {
       "title": "目的を聞く",
